@@ -20,9 +20,21 @@ namespace WeatherForecast.Controllers
         }
 
         [HttpGet(Name = "GetWeather")]
-        public IActionResult Get(WeatherService weatherService)
+        public ActionResult<WeatherData> Get([FromServices] IWeatherService weatherService, [FromServices] IServiceProvider provider)
         {
-            return Ok(weatherService.GetWeatherData());
+            var countOfServices = provider.GetServices<IWeatherService>().ToList().Count;
+            //var weather2 = provider.GetService<WeatherService2>().GetType(); // can't do it
+            Console.WriteLine(countOfServices); // can't do it
+            //Console.WriteLine(weather2);
+            var data = weatherService.GetWeatherData(); // WeatherService2 
+            //var result = // data is a JSON and send it to the requestor
+            return Ok(data); // return Ok(result);
         }
+    }
+
+    public class WeatherData
+    {
+        public double temp { get; set; }
+        public double feels_like { get; set; }
     }
 }
