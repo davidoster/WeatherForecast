@@ -24,11 +24,8 @@ namespace WeatherForecast.Controllers
         {
             var countOfServices = provider.GetServices<IWeatherService>().ToList().Count;
             var service1 = provider.GetServices<IWeatherService>().ToList()[0];
-            //var weather2 = provider.GetService<WeatherService2>().GetType(); // can't do it
             Console.WriteLine(countOfServices); 
-            //Console.WriteLine(weather2); // can't do it
-            var data = service1.GetWeatherData(); // WeatherService2 
-            //var result = // data is a JSON and send it to the requestor
+            var data = service1.GetWeatherData(); // WeatherService1 
             return Ok(data); // return Ok(result);
         }
     }
