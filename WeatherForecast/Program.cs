@@ -4,11 +4,7 @@ namespace WeatherForecast
 {
     public class Program
     {
-        private const string _lat = "50.073658";
-        private const string _lon = "14.418540";
-        private const string _API_key = "d368d9c1574a74a6f209d10c02aeef8d";
-
-        const string APICALL = $"https://api.openweathermap.org/data/3.0/onecall?lat={_lat}&lon={_lon}&appid={_API_key}";
+        
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +18,10 @@ namespace WeatherForecast
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IWeatherService, WeatherService2>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            });
 
             var app = builder.Build();
 
@@ -35,7 +35,7 @@ namespace WeatherForecast
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseCors("AllowAll");
 
             app.MapControllers();
 

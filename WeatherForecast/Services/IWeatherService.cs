@@ -2,6 +2,6 @@
 {
     public interface IWeatherService
     {
-        string GetWeatherData();
+        Task<string> GetWeatherData();
     }
 }
