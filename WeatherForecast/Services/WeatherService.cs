@@ -12,10 +12,10 @@
         {
             // send a get request to OpenWeatherAPI - HttpClient
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("");
+            //httpClient.BaseAddress = new Uri(APICALL);
             var result = await httpClient.GetAsync(APICALL);
             // we get a JSON and do some kind of business login and return a new JSON to the caller
-            return result.Content.ToString();
+            return await result.Content.ReadAsStringAsync();
         }
     }
 

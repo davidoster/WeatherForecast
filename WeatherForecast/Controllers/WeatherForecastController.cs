@@ -20,12 +20,13 @@ namespace WeatherForecast.Controllers
         }
 
         [HttpGet(Name = "GetWeather")]
-        public ActionResult<WeatherData> Get([FromServices] IWeatherService weatherService, [FromServices] IServiceProvider provider)
+        public async Task<ActionResult<string>> Get([FromServices] IWeatherService weatherService, 
+            [FromServices] IServiceProvider provider)
         {
             var countOfServices = provider.GetServices<IWeatherService>().ToList().Count;
             var service1 = provider.GetServices<IWeatherService>().ToList()[0];
             Console.WriteLine(countOfServices); 
-            var data = service1.GetWeatherData(); // WeatherService1 
+            var data = await service1.GetWeatherData(); // WeatherService1 
             return Ok(data); // return Ok(result);
         }
     }
